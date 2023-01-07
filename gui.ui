@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>500</height>
+    <height>700</height>
    </rect>
   </property>
   <property name="font">
@@ -42,7 +42,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_window_1">
         <property name="text">
-         <string>Status :</string>
+         <string>Status</string>
         </property>
        </widget>
       </item>
@@ -73,7 +73,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Bannerlord MPDS window selector</string>
+         <string>Window Selector</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -350,7 +350,7 @@
          </font>
         </property>
         <property name="text">
-         <string>CultureTeam selector</string>
+         <string>CultureTeam Selector</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -361,6 +361,121 @@
     </item>
     <item>
      <widget class="Line" name="line_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout_runner">
+      <item row="6" column="2">
+       <widget class="QLabel" name="label_runner_status">
+        <property name="text">
+         <string>not used</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLabel" name="label_runner_config">
+        <property name="text">
+         <string>Config</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLineEdit" name="lineEdit_runner_config">
+        <property name="text">
+         <string>14e_Event.txt</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2">
+       <widget class="QLabel" name="label_runner_title">
+        <property name="font">
+         <font>
+          <family>Courier New</family>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Server Runner</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLineEdit" name="lineEdit_runner_starter">
+        <property name="text">
+         <string>DedicatedCustomServer.Starter.exe</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QLabel" name="label_runner_options">
+        <property name="text">
+         <string>Options</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLineEdit" name="lineEdit_runner_options">
+        <property name="text">
+         <string>_MODULES_*Native*Multiplayer*DedicatedCustomServerHelper*_MODULES_</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QLabel" name="label_runner_folder">
+        <property name="text">
+         <string>Folder</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="checkBox_runner">
+        <property name="text">
+         <string>⟳</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="2">
+       <widget class="QLabel" name="label_runner_1">
+        <property name="text">
+         <string>Status</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QLabel" name="label_runner_starter">
+        <property name="text">
+         <string>Starter</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="lineEdit_runner_folder">
+        <property name="text">
+         <string>C:/Program Files (x86)/Steam/steamapps/common/Mount &amp; Blade II Dedicated Server/bin/Win64_Shipping_Server/</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0" colspan="3">
+       <widget class="QPushButton" name="pushButton_runner_restart">
+        <property name="text">
+         <string>restart</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line_5">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -479,8 +594,8 @@
    <slot>quick_warmup_set()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>338</x>
-     <y>312</y>
+     <x>389</x>
+     <y>335</y>
     </hint>
     <hint type="destinationlabel">
      <x>363</x>
@@ -495,8 +610,8 @@
    <slot>quick_map_set()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>371</x>
-     <y>339</y>
+     <x>389</x>
+     <y>364</y>
     </hint>
     <hint type="destinationlabel">
      <x>390</x>
@@ -511,8 +626,8 @@
    <slot>culture_set()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>277</x>
-     <y>396</y>
+     <x>389</x>
+     <y>424</y>
     </hint>
     <hint type="destinationlabel">
      <x>354</x>
@@ -527,8 +642,8 @@
    <slot>culture_checkbox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>399</y>
+     <x>101</x>
+     <y>421</y>
     </hint>
     <hint type="destinationlabel">
      <x>58</x>
@@ -543,12 +658,44 @@
    <slot>quick_cmd_send()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>362</x>
-     <y>277</y>
+     <x>389</x>
+     <y>306</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>
      <y>265</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_runner</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>runner_checkbox()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>498</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>531</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_runner_restart</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>runner_restart()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>245</x>
+     <y>645</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>396</x>
+     <y>635</y>
     </hint>
    </hints>
   </connection>
@@ -563,5 +710,7 @@
   <slot>culture_checkbox()</slot>
   <slot>culture_set()</slot>
   <slot>quick_cmd_send()</slot>
+  <slot>runner_checkbox()</slot>
+  <slot>runner_restart()</slot>
  </slots>
 </ui>
