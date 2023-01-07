@@ -22,6 +22,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.status = 'uninitialized'
         self.window_list = []
         self.hwnd = 0
+        # timer for message spammer
+        self.timer_msg_spam = QtCore.QTimer(self)
+        self.timer_msg_spam.timeout.connect(self.message_send)
+        # timer for culture team
+        self.timer_culture = QtCore.QTimer(self)
+        self.timer_culture.setInterval(1000)
+        self.timer_culture.timeout.connect(self.culture_set)
         # initialize
         self.reinitialize()
 
@@ -39,13 +46,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         return pid[0] > 0
 
     def send_message(self, message):
-        if self.ready():
-            for c in message:
-                win32gui.SendMessage(self.hwnd, win32con.WM_CHAR, ord(c), None)
-            win32gui.SendMessage(self.hwnd, win32con.WM_CHAR, win32con.VK_RETURN, None)
-        else:
-            print('not ready')
-            self.update_status('waiting for window selection')
+        if len(message) > 0:
+            if self.ready():
+                for c in message:
+                    win32gui.SendMessage(self.hwnd, win32con.WM_CHAR, ord(c), None)
+                win32gui.SendMessage(self.hwnd, win32con.WM_CHAR, win32con.VK_RETURN, None)
+            else:
+                print('not ready')
+                self.update_status('waiting for window selection')
 
     def window_refresh(self):
         self.reinitialize()
@@ -77,26 +85,41 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.update_status(f'selected window : {hwnd}')
 
     def message_checkbox(self):
-        print('message_checkbox')
+        self.timer_msg_spam.setInterval(self.spinBox_spammer_ms.value())
+        if self.checkBox_spammer.isChecked():
+            self.timer_msg_spam.start()
+        else:
+            self.timer_msg_spam.stop()
 
     def message_send(self):
-        print('message_send')
+        lines = self.plainTextEdit_message.toPlainText().split('\n')
+        for line in lines:
+            if len(line) > 0:
+                self.send_message(f'say {line}')
 
     def quick_cmd_send(self):
         cmd = self.lineEdit_quick_cmd.text()
         self.send_message(cmd)
 
     def quick_warmup_set(self):
-        print('quick_warmup_set')
+        value = self.spinBox_quick_warmuptime.value()
+        self.send_message(f'WarmupTimeLimit {value}')
 
     def quick_map_set(self):
-        print('quick_map_set')
+        value = self.lineEdit_quick_map.text()
+        self.send_message(f'Map {value}')
 
     def culture_checkbox(self):
-        print('culture_checkbox')
+        if self.checkBox_culture_team_auto.isChecked():
+            self.timer_culture.start()
+        else:
+            self.timer_culture.stop()
 
     def culture_set(self):
-        print('culture_set')
+        culture_team_1 = self.comboBox_culture_team_1.currentText()
+        culture_team_2 = self.comboBox_culture_team_2.currentText()
+        self.send_message(f'CultureTeam1 {culture_team_1}')
+        self.send_message(f'CultureTeam2 {culture_team_2}')
 
 
 if __name__ == '__main__':
