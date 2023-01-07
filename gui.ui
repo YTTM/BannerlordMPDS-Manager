@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Courier New</family>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>BannerlordMPDS Manager</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QGridLayout" name="gridLayout_window_selector">
+      <item row="1" column="1">
+       <widget class="QComboBox" name="comboBox_window_list">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="pushButton_window_refresh">
+        <property name="text">
+         <string>⟳</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_window_1">
+        <property name="text">
+         <string>Status :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="pushButton_window_select">
+        <property name="text">
+         <string>select</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="label_window_status">
+        <property name="text">
+         <string>uninitialized</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="3">
+       <widget class="QLabel" name="label_window_title">
+        <property name="font">
+         <font>
+          <family>Courier New</family>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Bannerlord MPDS window selector</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line_1">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout_message_spammer">
+      <item row="1" column="2">
+       <widget class="QPushButton" name="pushButton_message_send">
+        <property name="text">
+         <string>→ send</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="checkBox_spammer">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Message Spammer</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="3">
+       <widget class="QPlainTextEdit" name="plainTextEdit_message"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="spinBox_spammer_ms">
+        <property name="suffix">
+         <string>ms</string>
+        </property>
+        <property name="minimum">
+         <number>100</number>
+        </property>
+        <property name="maximum">
+         <number>3600000</number>
+        </property>
+        <property name="singleStep">
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="3">
+       <widget class="QLabel" name="label_spammer_title">
+        <property name="font">
+         <font>
+          <family>Courier New</family>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Message Spammer</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout_quick_options">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_quick_warmuptime">
+        <property name="text">
+         <string>WarmupTimeLimit</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_quick_map">
+        <property name="text">
+         <string>Map</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="lineEdit_quick_map"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="spinBox_quick_warmuptime">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>55</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="pushButton_quick_warmuptime_set">
+        <property name="text">
+         <string>set</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="pushButton_quick_map_set">
+        <property name="text">
+         <string>set</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="3">
+       <widget class="QLabel" name="label_quick_options_title">
+        <property name="font">
+         <font>
+          <family>Courier New</family>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Quick Options</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout_culture_team">
+      <item row="1" column="1">
+       <widget class="QPushButton" name="pushButton_culture_team_set">
+        <property name="text">
+         <string>Set CultureTeam</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_culture_team_2">
+        <property name="text">
+         <string>CultureTeam2 (defender)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="checkBox_culture_team_auto">
+        <property name="text">
+         <string>Auto refresh (2s spam)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QComboBox" name="comboBox_culture_team_2">
+        <item>
+         <property name="text">
+          <string>Aserai</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Battania</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Empire</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Khuzait</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Sturgia</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Vlandia</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_culture_team_1">
+        <property name="text">
+         <string>CultureTeam1 (attacker)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="comboBox_culture_team_1">
+        <item>
+         <property name="text">
+          <string>Aserai</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Battania</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Empire</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Khuzait</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Sturgia</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Vlandia</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLabel" name="label_culture_team_title">
+        <property name="font">
+         <font>
+          <family>Courier New</family>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>CultureTeam selector</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_github">
+      <property name="font">
+       <font>
+        <family>Courier New</family>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;a href=&quot;https://github.com/YTTM/BannerlordMPDS-Manager&quot;&gt;github.com/YTTM/BannerlordMPDS-Manager&lt;/a&gt;</string>
+      </property>
+      <property name="openExternalLinks">
+       <bool>true</bool>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::TextBrowserInteraction</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>pushButton_window_refresh</tabstop>
+  <tabstop>comboBox_window_list</tabstop>
+  <tabstop>pushButton_window_select</tabstop>
+  <tabstop>checkBox_spammer</tabstop>
+  <tabstop>spinBox_spammer_ms</tabstop>
+  <tabstop>pushButton_message_send</tabstop>
+  <tabstop>plainTextEdit_message</tabstop>
+  <tabstop>spinBox_quick_warmuptime</tabstop>
+  <tabstop>pushButton_quick_warmuptime_set</tabstop>
+  <tabstop>lineEdit_quick_map</tabstop>
+  <tabstop>pushButton_quick_map_set</tabstop>
+  <tabstop>checkBox_culture_team_auto</tabstop>
+  <tabstop>pushButton_culture_team_set</tabstop>
+  <tabstop>comboBox_culture_team_1</tabstop>
+  <tabstop>comboBox_culture_team_2</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_window_refresh</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>window_refresh()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>25</x>
+     <y>7</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_window_select</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>window_select()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>394</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_spammer</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>message_checkbox()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>112</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>49</x>
+     <y>102</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_message_send</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>message_send()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>351</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>347</x>
+     <y>104</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_quick_warmuptime_set</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>quick_warmup_set()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>338</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>363</x>
+     <y>296</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_quick_map_set</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>quick_map_set()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>371</x>
+     <y>339</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>342</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_culture_team_set</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>culture_set()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>277</x>
+     <y>396</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>354</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_culture_team_auto</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>culture_checkbox()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>91</x>
+     <y>399</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>58</x>
+     <y>386</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>window_refresh()</slot>
+  <slot>window_select()</slot>
+  <slot>message_checkbox()</slot>
+  <slot>message_send()</slot>
+  <slot>quick_warmup_set()</slot>
+  <slot>quick_map_set()</slot>
+  <slot>culture_checkbox()</slot>
+  <slot>culture_set()</slot>
+ </slots>
+</ui>
