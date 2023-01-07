@@ -1,15 +1,20 @@
+import os
 import sys
 
 import win32gui
 import win32con
 import win32process
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 from gui import Ui_MainWindow
+from log import Log
+from runner import Runner
+
+log = Log('ManagerLogs.txt')
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -22,6 +27,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.status = 'uninitialized'
         self.window_list = []
         self.hwnd = 0
+        self.server = None
         # timer for message spammer
         self.timer_msg_spam = QtCore.QTimer(self)
         self.timer_msg_spam.timeout.connect(self.message_send)
@@ -29,10 +35,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.timer_culture = QtCore.QTimer(self)
         self.timer_culture.setInterval(1000)
         self.timer_culture.timeout.connect(self.culture_set)
+        # timer for server runner
+        self.timer_runner = QtCore.QTimer(self)
+        self.timer_runner.setInterval(1000)
+        self.timer_runner.timeout.connect(self.server_runner)
         # initialize
-        self.reinitialize()
-
-    def reinitialize(self):
         self.window_list = []
         self.hwnd = 0
         self.update_status('waiting for window selection')
@@ -52,11 +59,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     win32gui.SendMessage(self.hwnd, win32con.WM_CHAR, ord(c), None)
                 win32gui.SendMessage(self.hwnd, win32con.WM_CHAR, win32con.VK_RETURN, None)
             else:
-                print('not ready')
+                log('not ready')
                 self.update_status('waiting for window selection')
 
     def window_refresh(self):
-        self.reinitialize()
+        self.window_list = []
+        self.hwnd = 0
+        self.update_status('waiting for window selection')
 
         # List windows with "server" in title
         def enum_windows_callback(hwnd, extra):
@@ -78,7 +87,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         selection = self.comboBox_window_list.currentIndex()
         if selection < 0:
-            print('no window selected')
+            log('no window selected')
         else:
             text, hwnd = self.window_list[selection]
             self.hwnd = hwnd
@@ -120,6 +129,62 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         culture_team_2 = self.comboBox_culture_team_2.currentText()
         self.send_message(f'CultureTeam1 {culture_team_1}')
         self.send_message(f'CultureTeam2 {culture_team_2}')
+
+    def runner_checkbox(self):
+        if self.checkBox_runner.isChecked():
+            self.timer_runner.start()
+        else:
+            self.timer_runner.stop()
+
+    def runner_restart(self):
+        if self.server is not None:
+            self.server.stop()
+
+        server_folder = self.lineEdit_runner_folder.text()
+        server_starter = self.lineEdit_runner_starter.text()
+        server_config_file = self.lineEdit_runner_config.text()
+        server_options = self.lineEdit_runner_options.text()
+
+        if not os.path.isdir(server_folder):
+            log('NotADirectoryError', level='ERROR')
+            return
+        if not os.path.isfile(server_folder + server_starter):
+            log('FileNotFoundError', level='ERROR')
+            return
+
+        os.chdir(server_folder)
+        args = [f'{server_starter}', f'/dedicatedcustomserverconfigfile', f'{server_config_file}', server_options]
+        log('arguments sequence', args)
+
+        self.server = Runner(args, log)
+        self.server.restart()
+
+        if not self.checkBox_runner.isChecked():
+            QtTest.QTest.qWait(500)
+            self.runner_window_update()
+
+    def runner_window_update(self):
+        def enum_windows_callback(hwnd, extra):
+            threadid, pid = win32process.GetWindowThreadProcessId(hwnd)
+            if self.server.p.pid == pid:
+                self.hwnd = hwnd
+                self.update_status(f'selected window : {hwnd}')
+
+        win32gui.EnumWindows(enum_windows_callback, None)
+
+    def server_runner(self):
+        # checkbox checked ?
+        if not self.checkBox_runner.isChecked():
+            return
+        # server never started ?
+        if self.server is None:
+            self.runner_restart()
+            return
+        # server crashed ?
+        if self.server.status() is not None:
+            self.runner_restart()
+            return
+        self.runner_window_update()
 
 
 if __name__ == '__main__':
