@@ -43,6 +43,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.window_list = []
         self.hwnd = 0
         self.update_status('waiting for window selection')
+        # initialize server files and folder
+        self.disk = 'C'
+        self.path = '/Program Files (x86)/Steam/steamapps/common/' \
+                    'Mount & Blade II Dedicated Server/'
+        self.path_bin = 'bin/Win64_Shipping_Server/'
+        for disk in reversed(['C', 'D', 'E']):
+            if os.path.isdir(f'{disk}:{self.path}'):
+                self.disk = disk
+                self.lineEdit_runner_folder.setText(f'{disk}:{self.path}{self.path_bin}')
 
     def update_status(self, status):
         self.status = status
@@ -130,6 +139,18 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.send_message(f'CultureTeam1 {culture_team_1}')
         self.send_message(f'CultureTeam2 {culture_team_2}')
 
+    def runner_config_file(self):
+        path_native = 'Modules/Native/'
+        p = f'{self.disk}:{self.path}{path_native}'
+        if not os.path.isdir(p):
+            p = 'C:/'
+        f = QFileDialog.getOpenFileName(self, 'Open file', p)
+        self.lineEdit_runner_config.setText(QFileInfo(f[0]).fileName())
+
+    def runner_logs_file(self):
+        f = QFileDialog.getExistingDirectory(self, 'Open folder')
+        self.lineEdit_runner_logs.setText(f)
+
     def runner_checkbox(self):
         if self.checkBox_runner.isChecked():
             self.timer_runner.start()
@@ -144,6 +165,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         server_starter = self.lineEdit_runner_starter.text()
         server_config_file = self.lineEdit_runner_config.text()
         server_options = self.lineEdit_runner_options.text()
+        server_log_path = self.lineEdit_runner_logs.text()
 
         if not os.path.isdir(server_folder):
             log('NotADirectoryError', level='ERROR')
@@ -153,7 +175,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             return
 
         os.chdir(server_folder)
-        args = [f'{server_starter}', f'/dedicatedcustomserverconfigfile', f'{server_config_file}', server_options]
+        args = [f'{server_starter}',
+                f'/dedicatedcustomserverconfigfile',f'{server_config_file}']
+        if len(server_log_path) > 0:
+            if server_log_path[-1] != '/':
+                server_log_path += '/'
+            args.append(f'/LogOutputPath')
+            args.append(f'{server_log_path}')
+        args.append(server_options)
+
         log('arguments sequence', args)
 
         self.server = Runner(args, log)
