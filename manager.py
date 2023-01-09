@@ -1,5 +1,6 @@
 import os
 import sys
+import glob
 
 import win32gui
 import win32con
@@ -43,6 +44,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.window_list = []
         self.hwnd = 0
         self.update_status('waiting for window selection')
+        # stdout read from logs
+        self.stdout_file = None
         # initialize server files and folder
         self.disk = 'C'
         self.path = '/Program Files (x86)/Steam/steamapps/common/' \
@@ -182,6 +185,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 server_log_path += '/'
             args.append(f'/LogOutputPath')
             args.append(f'{server_log_path}')
+        else:
+            server_log_path = 'C:/ProgramData/Mount and Blade II Bannerlord/'
         args.append(server_options)
 
         log('arguments sequence', args)
@@ -189,9 +194,18 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.server = Runner(args, log)
         self.server.restart()
 
+        QtTest.QTest.qWait(1000)
+
         if not self.checkBox_runner.isChecked():
-            QtTest.QTest.qWait(500)
             self.runner_window_update()
+
+        server_log_path += 'logs/'
+        server_log_file = glob.glob(f'{server_log_path}/rgl_log_[0-9]*.txt')[0]
+
+        if os.path.exists(server_log_file):
+            self.stdout_file = server_log_file
+        else:
+            self.stdout_file = None
 
     def runner_window_update(self):
         def enum_windows_callback(hwnd, extra):
